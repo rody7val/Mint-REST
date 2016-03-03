@@ -56,7 +56,7 @@ exports.getAll = function (req, res) {
 			res.send(err);
 			return;
 		}
-		res.json(users);
+		res.json({users: users});
 	});
 }
 /**

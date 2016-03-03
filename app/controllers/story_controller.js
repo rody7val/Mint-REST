@@ -6,7 +6,7 @@ exports.getAll = function (req, res) {
 			res.send(err);
 			return
 		}
-		res.json(stories);
+		res.json({stories: stories});
 	});
 }
 
