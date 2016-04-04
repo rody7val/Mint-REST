@@ -11,7 +11,7 @@ exports.getAll = function (req, res) {
 }
 
 exports.story = function (req, res) {
-	Story.find({_id: req.param('id')}, function (err, story) {
+	Story.find({_id: req.params('id')}, function (err, story) {
 		if (err) {
 			res.send(err);
 			return
@@ -21,7 +21,7 @@ exports.story = function (req, res) {
 }
 
 exports.remove_story = function (req, res) {
-	Story.remove({_id: req.param('id')}, function (err) {
+	Story.remove({_id: req.params('id')}, function (err) {
 		if (err) {
 			res.send(err);
 			return
@@ -31,7 +31,7 @@ exports.remove_story = function (req, res) {
 }
 
 exports.search_story = function (req, res) {
-	Story.find({$and: [{'content': new RegExp(req.param('query'), 'i')}, {'publishStatus': 1}]}, function (err, stories) {
+	Story.find({$and: [{'content': new RegExp(req.params('query'), 'i')}, {'publishStatus': 1}]}, function (err, stories) {
 		if (err) {
 			res.send(err);
 			return
@@ -41,7 +41,7 @@ exports.search_story = function (req, res) {
 }
 
 exports.search_story_by_category = function (req, res) {
-	Story.find({$and: [{category: req.param('category')}, {'publishStatus': 1}]}, function (err, stories) {
+	Story.find({$and: [{category: req.params('category')}, {'publishStatus': 1}]}, function (err, stories) {
 		if (err) {
 			res.send(err);
 			return

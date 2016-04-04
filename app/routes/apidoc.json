@@ -1,0 +1,8 @@
+{
+  "name": "Mint-REST",
+  "version": "1.0.0",
+  "description": "Una API RESTful usando MongoDB, Node.js y express",
+  "apidoc": {
+    "title": "API RESTful",
+  }
+}

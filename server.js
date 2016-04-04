@@ -28,7 +28,10 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 var api = require('./app/routes/api')(app, express);
+var doc = require('./app/routes/doc')(app, express);
+
 app.use('/api', api);
+app.use('/documentation', doc);
 
 app.listen(config.port, function (err) {
     if (err) {
