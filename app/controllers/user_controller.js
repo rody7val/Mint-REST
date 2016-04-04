@@ -33,11 +33,10 @@ exports.signup = function(req, res) {
 	var toekn = createToken(user);
 	user.save(function (err) {
 		if (err) {
-				res.send(err);
-				return;
+			return res.status(404).send(err);
 		}
-		res.json({
-			success: true,
+		return res.json({
+			id: user._id,
 			message: "User has been created",
 			token: toekn
 		});
@@ -89,7 +88,7 @@ exports.login = function (req, res) {
  * Search with the username and check if there is a user available or not.
  **/
 exports.searchUserWithEmail = function (req, res) {
-	User.findOne({email: req.param('email')}, function (err, user) {
+	User.findOne({email: req.params('email')}, function (err, user) {
 		if (err) {
 			res.send(err);
 			return
