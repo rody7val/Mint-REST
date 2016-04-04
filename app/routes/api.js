@@ -17,6 +17,12 @@ module.exports = function (app, express) {
      * @apiName NevoUsuario
      * @apiGroup Usuario
      * @apiVersion 1.0.0
+     * @apiSuccessExample Ejemplo de datos con exito
+     * {
+     *   "id": "5702e0b9f36177c11916f3f1",
+     *   "message": "User has been created",
+     *   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NzAyZTBiOWYzNjE3N2MxMTkxNmYzZjEiLCJuYW1lIjoiUm9kb2xmbyBWYWxndWFybmVyYSIsInVzZXJuYW1lIjoicm9kN3ZhbCIsImVtYWlsIjoicm9kN3ZhbEBnbWFpbC5jb20iLCJpYXQiOjE0NTk4MDYzOTMsImV4cCI6MTQ1OTg5Mjc5M30.EYXPfsLkkPfENJf8fjCYfyZFF_EQkzjnqVYQo2xOh1Y"
+     * }
      *
      * @apiParam {String} name Nombre de la persona.
      * @apiParam {String} username Nombre de Usuario.
