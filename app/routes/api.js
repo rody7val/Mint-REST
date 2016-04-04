@@ -6,13 +6,26 @@ var secretKey = config.secretKey;
 // Controllers
 var userController = require('../controllers/user_controller');
 var storyController = require('../controllers/story_controller');
+var accessController = require('../controllers/access_controller');
 
 module.exports = function (app, express) {
 
     var api = express.Router();
 
     /**
-     * Create new user and save in database.
+     * @api {post} /signup Crear nuevo Usuario
+     * @apiName NevoUsuario
+     * @apiGroup Usuario
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} name Nombre de la persona.
+     * @apiParam {String} username Nombre de Usuario.
+     * @apiParam {String} email Direccion de email.
+     * @apiParam {String} password Contrseña de Usuario.    
+     *
+     * @apiSuccess {String} message Mensaje de exito
+     * @apiSuccess {String} token Nuevo token de session
+     * @apiSuccess {String} id Id de Usuario
      */
     api.post('/signup', userController.signup);
 
@@ -60,48 +73,26 @@ module.exports = function (app, express) {
      **/
     api.get('/searchUserWithEmail', userController.searchUserWithEmail);
 
-    /**
-     * Check logged status in order to
-     * give permission to following links.
-     */
-    api.use(function (req, res, next) {
-        console.log("Somebody logged into system");
-        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-
-        // Check if token exists.
-        if (token) {
-            jsonwebtoken.verify(token, secretKey, function (err, decoded) {
-                if (err) {
-                    res.status(403).send({success: false, message: "Failed to authenticate"});
-                } else {
-                    req.decoded = decoded;
-                    next();
-                }
-            });
-        } else {
-            res.status(403).send({success: false, message: "No valid token provided"});
-        }
-    });
 
     /**
      * Create new story.
      */
-    api.post('/story', storyController.new);
+    api.post('/story', accessController.confirmToken, storyController.new);
 
     /**
      * Get all user stories from server with registered user id..
      */
-    api.get('/story_of_user', storyController.story_of_user);
+    api.get('/story_of_user', accessController.confirmToken, storyController.story_of_user);
 
     /**
      * Getting about logged user.
      */
-    api.get('/me', userController.me);
+    api.get('/me', accessController.confirmToken, userController.me);
 
     /**
      * Update story model with data from req.
      **/
-    api.post('/update_story', storyController.update_story);
+    api.post('/update_story', accessController.confirmToken, storyController.update_story);
 
     /**
      * Returning the API.
